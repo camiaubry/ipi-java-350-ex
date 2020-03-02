@@ -1,1 +1,12 @@
 language: java
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "camiaubry" # the key of the org you chose at step #3
+    token:
+      secure: "4521a481d483d8296fde5df13243e5ab8c257ecb" # encrypted value of your token
+script:
+  # other script steps might be done before running the actual analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=camiaubry_ipi-java-350-ex
+  - if [ "$JAVA_HOME" = "/usr/lib/jvm/java-1.8.0-openjdk-amd64" ]; then mvn sonar:sonar; fi
